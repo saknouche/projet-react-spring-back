@@ -2,6 +2,8 @@ package com.sadev.app.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,12 +19,13 @@ public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String message;
 	@Column(nullable = false)
-	private LocalDate createdAt;
+	private LocalDate createdAt = LocalDate.now();
 	@ManyToOne
 	@JoinColumn(name = "post_id")
+	@JsonIgnore
 	private Post post;
 	public Long getId() {
 		return id;
@@ -42,6 +45,13 @@ public class Comment {
 	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
+	public Post getPost() {
+		return post;
+	}
+	public void setPost(Post post) {
+		this.post = post;
+	}
+	
 	
 	
 }
