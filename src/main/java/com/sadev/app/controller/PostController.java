@@ -40,6 +40,7 @@ public class PostController {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
+	
 	@DeleteMapping("/posts/{id}")
 	public ResponseEntity<?> deletePostById(@PathVariable("id") Long id){
 		if(id != null) {

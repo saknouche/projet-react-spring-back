@@ -24,7 +24,7 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String imageUrl;
 	private Long likes;
 	@Column(nullable = false, unique = true)
@@ -34,6 +34,18 @@ public class Post {
 	private User user;
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<Comment> comments = new ArrayList<>();
+	
+
+	public Post(String imageUrl, User user) {
+		super();
+		this.imageUrl = imageUrl;
+		this.user = user;
+		this.createdAt = LocalDate.now();
+	}
+
+	public Post() {
+		super();
+	}
 
 	public Long getId() {
 		return id;
