@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,5 +45,16 @@ public class CommentController {
 			return ResponseEntity.internalServerError().build();
 		}
 
+	}
+	
+	@DeleteMapping("/comments/{id}")
+	public ResponseEntity<?> deleteCommentById(@PathVariable("id") Long id){
+		if(id != null) {
+			Comment commentToDelete = commentRepository.findById(id).get();
+			commentRepository.delete(commentToDelete); 
+			return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+		}else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
 	}
 }
